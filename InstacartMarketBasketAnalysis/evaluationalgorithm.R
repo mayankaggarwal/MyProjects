@@ -1,5 +1,7 @@
 employ.data <- data.frame(
   employee=c('a','b','c'));
+
+
 companies = list(4:5,7:13,1));
 companies = list(c('Orange','Infy'),c('Google','Microsoft','IBM'),c('x')))
 employ.data$companies <- list(c('Orange','Infy'),c('Google','Microsoft','IBM'),c('x'));
@@ -18,12 +20,18 @@ df_pred <- aggregate(product_id ~ order_id,data = df_pred,paste,collapse=' ')
 
 dfcombined <- merge(df_real,df_pred,by = "order_id",suffixes = c("_real","_pred"));
 dfcombined
-dfcombined["realarray"] <- strsplit(dfcombined$product_id_real,' ');
-apply(dfcombined,2,FUN = strsplit(dfcombined$product_id_real,' '));
-sapply(strsplit(dfcombined$product_id_real,' '))
-
-strsplit(dfcombined$product_id_real,' ')
 
 splitfun <- function(x) strsplit(x,' ');
 
-splitfun('0 1 2 3 4 5')
+dfcombined["realarray"] <- sapply(dfcombined$product_id_real,FUN = splitfun)
+
+j <- 1;
+for(i in dfcombined$product_id_pred){
+  dfcombined$predarray[j] <- splitfun(i)
+  j <- j+1;
+}
+
+length(as.vector(dfcombined$realarray))
+
+length(strsplit(dfcombined[3,"product_id_real"]," "))
+length(strsplit(dfcombined[3,"product_id_real"],' '))
