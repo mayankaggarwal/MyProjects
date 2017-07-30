@@ -43,3 +43,19 @@ colnames(sample_submission)
 nrow(orders[orders$eval_set == 'test',])  #3214874 131209 75000
 orders[orders$order_id %in% c('17','34','137','182'),]
 head(sample_submission)
+
+### Libraries
+install.packages('RODBC');
+library(RODBC)
+
+library(RODBC)
+dbhandle <- odbcDriverConnect('driver={SQL Server};server=DELL\\SQLEXPRESS;database=Instacart;User ID=instacart;Password=admin123+')
+sqlSave(dbhandle,aisle,tablename="aisle")
+sqlSave(dbhandle,departments,tablename="departments")
+sqlSave(dbhandle,order_products_prior,tablename="order_products_prior")
+sqlSave(dbhandle,order_products_train,tablename="order_products_train")
+sqlSave(dbhandle,orders,tablename="orders")
+sqlSave(dbhandle,products,tablename="products")
+sqlSave(dbhandle,sample_submission,tablename="sample_submission")
+
+
