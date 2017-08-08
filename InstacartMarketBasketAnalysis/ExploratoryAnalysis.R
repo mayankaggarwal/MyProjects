@@ -84,7 +84,7 @@ order_products_comb <- order_products_comb %>%
   group_by(user_id,product_id) %>% 
   summarise(n_items = n());
 order_products_comb <- order_products_comb[with(order_products_comb,order(user_id,-n_items)),];
-order_products_comb <- subset(order_products_comb,n_items > 3);
+order_products_comb <- subset(order_products_comb,n_items >= 0);
 order_products_comb <- order_products_comb[,c("user_id","product_id")];
 order_products_comb <- aggregate(product_id~user_id,data = order_products_comb,paste,collapse=' ')
 
@@ -96,7 +96,7 @@ order_products_submit <- order_products_submit %>% left_join(order_products_comb
 nrow(order_products_submit)
 order_products_submit <- order_products_submit[,c("order_id","product_id")];
 colnames(order_products_submit) <- c("order_id","products"); 
-fwrite(order_products_submit,file.path(dataFolder,"mySubmission1.csv"));
+fwrite(order_products_submit,file.path(dataFolder,"mySubmission3_05082017.csv"));
 
 
 
